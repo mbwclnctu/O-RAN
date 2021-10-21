@@ -1,0 +1,41 @@
+{
+  "xapp_name": "xappkpimontomysql",
+  "version": "1.0.0",
+  "containers": [
+    {
+      "name": "xappkpimontomysql",
+      "image": {
+        "registry": "nexus3.o-ran-sc.org:10002",
+        "name": "o-ran-sc/scp-ric-app-kpimontomysql",
+        "tag": "1.0.0"
+      }
+    }
+  ],
+  "messaging": {
+    "ports": [
+      {
+        "name": "rmr-data",
+        "container": "xappkpimontomysql",
+        "port": 4560,
+        "rxMessages": ["RIC_SUB_RESP", "RIC_INDICATION"],
+        "txMessages": ["RIC_SUB_REQ"],
+        "policies": [],
+        "description": "rmr receive data port for xappkpimontomysql"
+      },
+      {
+        "name": "rmr-route",
+        "container": "xappkpimontomysql",
+        "port": 4561,
+        "description": "rmr route port for xappkpimontomysql"
+      }
+    ]
+  },
+  "rmr": {
+    "protPort": "tcp:4560",
+    "maxSize": 2072,
+    "numWorkers": 1,
+    "rxMessages": ["RIC_SUB_RESP", "RIC_INDICATION"],
+    "txMessages": ["RIC_SUB_REQ"],
+    "policies": []
+  }
+}
